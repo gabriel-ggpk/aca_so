@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { Suspense } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import routes from './core/config/routes';
+import RouteInterface from './core/interfaces/route';
 
-function App() {
+function AppRoutes(): JSX.Element {
   return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
+    <BrowserRouter>
+      <Suspense fallback="">
+        <Routes>
+          {RouterComponents}
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
   );
 }
-
-export default App;
+const RouterComponents = routes.map(
+  ({ url, component }: RouteInterface):JSX.Element => (
+    <Route key={url} path={url} element={component({})} />
+  ),
+);
+export default AppRoutes;
