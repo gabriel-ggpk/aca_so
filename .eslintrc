@@ -3,5 +3,7 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "no-use-before-define": "off"
+  "rules":{
+    "linebreak-style": 0
+  }
 }
