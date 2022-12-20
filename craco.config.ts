@@ -1,3 +1,4 @@
+// Configurando pathing para raiz do projeto
 import path from 'path';
 module.exports = {
   webpack: {

@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import routes from './core/config/routes';
 import RouteInterface from './core/interfaces/route';
 
-function AppRoutes(): JSX.Element {
+export default function AppRoutes(): JSX.Element {
   return (
     <BrowserRouter>
       <Suspense fallback="">
@@ -16,7 +16,6 @@ function AppRoutes(): JSX.Element {
 }
 const RouterComponents = routes.map(
   ({ url, component }: RouteInterface):JSX.Element => (
-    <Route key={url} path={url} element={component({})} />
+    <Route key={url} path={url} element={React.createElement(component)} />
   ),
 );
-export default AppRoutes;
