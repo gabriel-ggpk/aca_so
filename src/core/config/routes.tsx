@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import RouteInterface from "../interfaces/route";
+import RouteInterface from '../interfaces/route';
 
 // Carrega as rotas de forma lazy
 const Login = lazy(() => import('@/pages/login/'));
@@ -7,8 +7,8 @@ const Register = lazy(() => import('@/pages/register/'));
 const confirmEmail = lazy(() => import('@/pages/confirmEmail/'));
 const Home = lazy(() => import('@/pages/home/'));
 
-//cria um array de rotas que sera usado no pelo react-router-dom
-const routes: RouteInterface[]  = [
+// cria um array de rotas que sera usado no pelo react-router-dom
+const routes: RouteInterface[] = [
   {
     url: '/',
     component: Login,
