@@ -5,13 +5,16 @@ export interface Props {
   children?: React.ReactNode;
   backgroundColor?: string;
   height?: string;
+  color?: string;
   width: string;
+  text?: string;
   onClick: () => void;
 }
 const StyledButton = styled.div<Props>`
   background-color: ${(props) => props.backgroundColor || 'white'};
   height: ${(props) => props.height || ''};
   width: ${(props) => props.width || ''};
+  color: ${(props) => props.color || 'white'};
   border-radius: 30px;
   display: flex;
   justify-content: center;
@@ -24,6 +27,8 @@ export default function Button({
   width,
   onClick,
   backgroundColor,
+  color,
+  text,
 }: Props): JSX.Element {
   return (
     <div className="wrapper">
@@ -32,8 +37,10 @@ export default function Button({
         backgroundColor={backgroundColor}
         height={height}
         width={width}
+        color={color}
+        text={text}
       >
-        {children}
+        {text || children}
       </StyledButton>
     </div>
   );

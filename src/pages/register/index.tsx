@@ -6,7 +6,7 @@ import Button from '@/components/elements/button';
 const NameWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 400px;
+  width: 500px;
 `;
 const FormWrapper = styled.div`
   display: flex;
@@ -15,21 +15,27 @@ const FormWrapper = styled.div`
   justify-content: center;
   height: 100vh;
 `;
+const StyledTitle = styled.h1`
+  font-size: 32px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 32px;
+`;
 
 export default function Register(): JSX.Element {
   return (
     <FormWrapper>
-      <h1>CADASTRO</h1>
+      <StyledTitle>CADASTRO</StyledTitle>
       <NameWrapper>
-        <Input type="text" placeholder="Primeiro nome" />
-        <Input type="text" placeholder="Último nome" />
+        <Input type="text" placeholder="Primeiro nome" width="200px" />
+        <Input type="text" placeholder="Último nome" width="200px" />
       </NameWrapper>
-      <span>seu email</span>
-      <Input type="email" placeholder="Seu@email.com" />
-      <Input type="password" placeholder="******" />
-      <Input type="password" placeholder="******" />
+      <Input type="email" placeholder="Seu@email.com" width="500px" />
+      <Input type="password" placeholder="******" width="500px" />
+      <Input type="password" placeholder="******" width="500px" />
       <Button
         backgroundColor="white"
+        color="black"
         width="400px"
         onClick={() => {
           console.log('clicou');
