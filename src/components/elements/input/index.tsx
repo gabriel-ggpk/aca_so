@@ -5,6 +5,7 @@ export interface Props {
   type: string;
   placeholder?: string;
   width: string;
+  label?: string;
 }
 const StyledInput = styled.input<Props>`
   border: none;
@@ -17,11 +18,15 @@ const StyledInput = styled.input<Props>`
   font-size: 16px;
   box-sizing: border-box;
   `;
-
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  `;
 export default function Input({
   type,
   placeholder,
   width,
+  label,
 }: Props): JSX.Element {
   const [value, setValue] = React.useState('');
 
@@ -31,12 +36,17 @@ export default function Input({
   };
 
   return (
-    <StyledInput
-      type={type}
-      width={width}
-      value={value}
-      placeholder={placeholder}
-      onChange={inputHandler}
-    />
+    <Wrapper>
+      {label && <span>{label}</span>}
+      <StyledInput
+        type={type}
+        width={width}
+        value={value}
+        placeholder={placeholder}
+        onChange={inputHandler}
+      />
+
+    </Wrapper>
+
   );
 }

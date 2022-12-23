@@ -27,12 +27,12 @@ export default function Register(): JSX.Element {
     <FormWrapper>
       <StyledTitle>CADASTRO</StyledTitle>
       <NameWrapper>
-        <Input type="text" placeholder="Primeiro nome" width="200px" />
-        <Input type="text" placeholder="Último nome" width="200px" />
+        <Input type="text" placeholder="Primeiro nome" width="200px" label="Primeiro nome*" />
+        <Input type="text" placeholder="Último nome" width="200px" label="Último nome*" />
       </NameWrapper>
-      <Input type="email" placeholder="Seu@email.com" width="500px" />
-      <Input type="password" placeholder="******" width="500px" />
-      <Input type="password" placeholder="******" width="500px" />
+      <Input type="email" placeholder="Seu@email.com" width="500px" label="E-mail*" />
+      <Input type="password" placeholder="******" width="500px" label="Senha*" />
+      <Input type="password" placeholder="******" width="500px" label="Confirme a senha*" />
       <Button
         backgroundColor="white"
         color="black"
