@@ -4,26 +4,24 @@ import styled from 'styled-components';
 export interface Props {
   children?: React.ReactNode;
   backgroundColor?: string;
-  color: string;
-  height: string;
+  color?: string;
   width: string;
   onClick: () => void;
 }
 const StyledButton = styled.div<Props>`
   background-color: ${(props) => props.backgroundColor || 'white'};
   color: ${(props) => props.color || 'white'};
-  height: ${(props) => props.height || '50px'};
   width: ${(props) => props.width || '200px'};
   border-radius: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 16px 0px;
 `;
 
 export default function Button({
   children,
   color,
-  height,
   width,
   onClick,
   backgroundColor,
@@ -34,7 +32,6 @@ export default function Button({
         onClick={onClick}
         color={color}
         backgroundColor={backgroundColor}
-        height={height}
         width={width}
       >
         {children}
