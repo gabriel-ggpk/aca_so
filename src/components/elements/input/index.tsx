@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PasswordIcon from '@/assets/password-show.svg';
 // usando export para conjtrnar um bug do eslint
 export interface Props {
   type: string;
@@ -14,14 +15,31 @@ const StyledInput = styled.input<Props>`
   width: ${(props) => props.width || '200px'};
   border-radius: 5px;
   color: white;
-  padding: 16px 16px 10px 16px;
-  font-size: 16px;
+  padding-left: 16px;
+  font-size: 12px;
+  font-weight: 400;
   box-sizing: border-box;
+  font-family: 'Raleway', sans-serif;
+
   `;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
   `;
+const Label = styled.span`
+  font-size: 16px;
+  line-height: 110%;
+  margin-bottom: 8px;
+  margin-left: 10px;
+  `;
+const PasswordIconWrapper = styled.img`
+  position: absolute;
+  right: 16px;
+  top: 45px;
+
+  `;
+
 export default function Input({
   type,
   placeholder,
@@ -37,7 +55,8 @@ export default function Input({
 
   return (
     <Wrapper>
-      {label && <span>{label}</span>}
+      {label && <Label>{label}</Label>}
+      {type === 'password' && <PasswordIconWrapper src={PasswordIcon} alt="" />}
       <StyledInput
         type={type}
         width={width}
