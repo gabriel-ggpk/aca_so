@@ -38,12 +38,14 @@ export default function ConfirmEmail(): JSX.Element {
         color="black"
         width="400px"
         onClick={() => {}}
+        fontWeigth="700"
       >
         Confirmar e-mail
       </Button>
       <Button
         backgroundColor="rgba(255, 255, 255, 0.1)"
         width="400px"
+        fontWeigth="700"
         onClick={() => {
           if (!resendEmail) return;
           setEmailTimer(dayjs.duration(120, 'seconds'));
