@@ -19,6 +19,7 @@ function Login(): JSX.Element {
         width="400px"
         onClick={() => {
         }}
+        fontWeigth="700"
       >
         Entrar
       </Button>
@@ -27,6 +28,7 @@ function Login(): JSX.Element {
         width="400px"
         onClick={() => {
         }}
+        fontWeigth="700"
       >
         Criar minha conta em aca.so
       </Button>

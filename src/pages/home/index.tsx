@@ -60,7 +60,7 @@ const UserName = styled.p`
   `;
 const UserStatus = styled.p`
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 500;
   font-style: italic;
   line-height: 23px;
   margin-bottom: 45px;
@@ -77,7 +77,7 @@ export default function Home(): JSX.Element {
             <strong> 42 minutos</strong>
           </UserStatus>
 
-          <Button width="" color="black" onClick={() => {}}>
+          <Button width="" color="black" fontWeigth="500" font="Montserrat" onClick={() => {}}>
             Sair de aca.so
           </Button>
         </InfoWrapper>

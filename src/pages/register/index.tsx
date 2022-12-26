@@ -32,6 +32,8 @@ export default function Register(): JSX.Element {
         width="400px"
         onClick={() => {
         }}
+        font="Montserrat"
+        fontWeigth="700"
       >
         Criar minha conta aca.so
       </Button>
