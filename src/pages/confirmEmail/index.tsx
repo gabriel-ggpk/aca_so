@@ -15,7 +15,7 @@ import CreateUserServices from '@/core/service/createUser';
 dayjs.extend(duration);
 
 export default function ConfirmEmail(): JSX.Element {
-  const [emailTimer, setEmailTimer] = React.useState(dayjs.duration(2, 'seconds'));
+  const [emailTimer, setEmailTimer] = React.useState(dayjs.duration(120, 'seconds'));
   const [resendEmail, setResendEmail] = React.useState(false);
   const [inputError, setInputError] = React.useState({} as Partial<VerificationInfo>);
   const [reqError, setReqError] = React.useState('');
