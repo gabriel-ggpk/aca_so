@@ -1,18 +1,27 @@
 import React, { useEffect } from 'react';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
+import { useNavigate } from 'react-router-dom';
 import Logo from '@/assets/negative-logo.svg';
 import CompanyLogo from '@/components/templates/styledComponents/companyLogo';
 import FormWrapper from '@/components/templates/styledComponents/formWrapper';
 import FormTitle from '@/components/templates/styledComponents/formTitle';
 import Input from '@/components/elements/input';
 import Button from '@/components/elements/button';
+import validateInput from '@/core/helpers/inputValidator';
+import VerificationInfo from '@/core/interfaces/forms/verification';
+import CreateUserServices from '@/core/service/createUser';
 
 dayjs.extend(duration);
 
 export default function ConfirmEmail(): JSX.Element {
-  const [emailTimer, setEmailTimer] = React.useState(dayjs.duration(2, 'seconds'));
+  const [emailTimer, setEmailTimer] = React.useState(dayjs.duration(120, 'seconds'));
   const [resendEmail, setResendEmail] = React.useState(false);
+  const [inputError, setInputError] = React.useState({} as Partial<VerificationInfo>);
+  const [reqError, setReqError] = React.useState('');
+  const navigate = useNavigate();
+  const codeRef = React.useRef<HTMLInputElement>(null);
+  const searchParams = new URLSearchParams(window.location.search);
   useEffect(() => {
     if (resendEmail) return;
     const countdown = setInterval(() => {
@@ -32,13 +41,35 @@ export default function ConfirmEmail(): JSX.Element {
       <FormTitle>
         {'C O N F I R M A R \n E - M A I L'}
       </FormTitle>
-      <Input type="email" placeholder="Digite o código recebido..." width="500px" label="Código" />
+      <Input type="email" placeholder="Digite o código recebido..." width="500px" label="Código" innerRef={codeRef} error={inputError.code} />
       <Button
         backgroundColor="white"
-        labelColor="black"
+        color="black"
         width="400px"
-        onClick={() => {}}
         fontWeigth="700"
+        labelColor="red"
+        label={reqError}
+        onClick={async () => {
+          const { triggerInput, errorMessage } = validateInput('verification', {
+            code: codeRef.current?.value,
+          });
+          if (triggerInput && triggerInput !== '') {
+            setInputError({ [triggerInput]: errorMessage });
+            setReqError('');
+            return;
+          }
+          setInputError({});
+          const result = await CreateUserServices.verifyEmail({
+            email: searchParams.get('email'),
+            code: codeRef.current?.value,
+          });
+          if (result && result.message) {
+            setReqError(result.message);
+            return;
+          }
+          // adicionar o token no localstorage
+          navigate('/');
+        }}
       >
         Confirmar e-mail
       </Button>

@@ -23,6 +23,9 @@ const registerSchema = joi.object({
     'any.only': 'Passwords do not match',
   }),
 });
+const verificationSchema = joi.object({
+  code: joi.string().required().messages({ 'string.empty': 'Code is required' }),
+});
 export default function validateInput(type: string, data: object) {
   let schema = null;
   switch (type) {
@@ -31,6 +34,9 @@ export default function validateInput(type: string, data: object) {
       break;
     case 'register':
       schema = registerSchema;
+      break;
+    case 'verification':
+      schema = verificationSchema;
       break;
     default:
       return { triggerInput: null, errorMessage: null };

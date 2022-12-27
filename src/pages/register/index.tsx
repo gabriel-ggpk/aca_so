@@ -66,6 +66,7 @@ export default function Register(): JSX.Element {
             setInputError({ [triggerInput]: errorMessage });
             return;
           }
+          setInputError({});
           const result = await CreateUserServices.createUser({
             firstName: firstNameRef.current?.value,
             lastName: lastNameRef.current?.value,
