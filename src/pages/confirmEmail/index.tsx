@@ -35,7 +35,7 @@ export default function ConfirmEmail(): JSX.Element {
       <Input type="email" placeholder="Digite o código recebido..." width="500px" label="Código" />
       <Button
         backgroundColor="white"
-        color="black"
+        labelColor="black"
         width="400px"
         onClick={() => {}}
         fontWeigth="700"

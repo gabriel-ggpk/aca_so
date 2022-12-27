@@ -14,7 +14,7 @@ export interface ButtonProps {
 }
 export interface ButtonLabelProps {
   children?: React.ReactNode;
-  color?: string;
+  labelColor?: string;
 }
 const StyledButton = styled.div<ButtonProps>`
   background-color: ${(props) => props.backgroundColor || 'white'};
@@ -33,7 +33,8 @@ const ButtonLabel = styled.span<ButtonLabelProps>`
   font-size: 16px;
   text-align: center;
   margin-bottom: 8px;
-  color: ${(props) => props.color || 'white'};
+  font-weight: 400;
+  color: ${(props) => props.labelColor || 'white'};
 `;
 const ButtonWrapper = styled.div`
   display: flex;
@@ -50,10 +51,11 @@ export default function Button({
   fontWeigth,
   font,
   label,
-}: ButtonProps): JSX.Element {
+  labelColor,
+}: ButtonProps & ButtonLabelProps): JSX.Element {
   return (
     <ButtonWrapper>
-      {label ? <ButtonLabel>{label}</ButtonLabel> : null}
+      {label ? <ButtonLabel labelColor={labelColor}>{label}</ButtonLabel> : null}
       <StyledButton
         onClick={onClick}
         backgroundColor={backgroundColor}

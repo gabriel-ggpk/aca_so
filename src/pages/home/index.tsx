@@ -77,7 +77,7 @@ export default function Home(): JSX.Element {
             <strong> 42 minutos</strong>
           </UserStatus>
 
-          <Button width="" color="black" fontWeigth="500" font="Montserrat" onClick={() => {}}>
+          <Button width="" labelColor="black" fontWeigth="500" font="Montserrat" onClick={() => {}}>
             Sair de aca.so
           </Button>
         </InfoWrapper>
