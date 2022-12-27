@@ -8,6 +8,7 @@ import FormWrapper from '@/components/templates/styledComponents/formWrapper';
 import FormTitle from '@/components/templates/styledComponents/formTitle';
 import validateInput from '@/core/helpers/inputValidator';
 import RegisterInfo from '@/core/interfaces/forms/register';
+import CreateUserServices from '@/core/service/createUser';
 
 const NameWrapper = styled.div`
   display: flex;
@@ -31,7 +32,7 @@ export default function Register(): JSX.Element {
       confirmPassword: '',
     } as Partial<RegisterInfo>,
   );
-
+  const [reqError, setReqError] = useState('');
   return (
     <FormWrapper>
       <CompanyLogo src={Logo} alt="Logo-acaso" />
@@ -47,7 +48,9 @@ export default function Register(): JSX.Element {
         backgroundColor="white"
         color="black"
         width="400px"
-        onClick={() => {
+        label={reqError}
+        labelColor="red"
+        onClick={async () => {
           const { triggerInput, errorMessage } = validateInput('register', {
             email: emailRef.current?.value,
             password: passwordRef.current?.value,
@@ -57,6 +60,17 @@ export default function Register(): JSX.Element {
           });
           if (triggerInput && triggerInput !== '') {
             setInputError({ [triggerInput]: errorMessage });
+            return;
+          }
+          const data = await CreateUserServices.createUser({
+            firstName: firstNameRef.current?.value,
+            lastName: lastNameRef.current?.value,
+            email: emailRef.current?.value,
+            password: passwordRef.current?.value,
+            confirmPassword: confirmPasswordRef.current?.value,
+          });
+          if (data && data.message) {
+            setReqError(data.message);
           }
         }}
         font="Montserrat"
