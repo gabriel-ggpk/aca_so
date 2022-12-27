@@ -8,7 +8,7 @@ import Input from '@/components/elements/input';
 import Button from '@/components/elements/button';
 import validateInput from '@/core/helpers/inputValidator';
 import LoginInfo from '@/core/interfaces/forms/login';
-import AuthServices from '@/core/service/signIn';
+import AuthServices from '@/core/service/auth';
 
 function Login(): JSX.Element {
   const emailRef = useRef<HTMLInputElement>(null);
