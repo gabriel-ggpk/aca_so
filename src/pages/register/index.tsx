@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import Input from '@/components/elements/input';
 import Button from '@/components/elements/button';
@@ -6,6 +6,8 @@ import Logo from '../../assets/negative-logo.svg';
 import CompanyLogo from '@/components/templates/styledComponents/companyLogo';
 import FormWrapper from '@/components/templates/styledComponents/formWrapper';
 import FormTitle from '@/components/templates/styledComponents/formTitle';
+import validateInput from '@/core/helpers/inputValidator';
+import RegisterInfo from '@/core/interfaces/forms/register';
 
 const NameWrapper = styled.div`
   display: flex;
@@ -15,22 +17,47 @@ const NameWrapper = styled.div`
 
 // adicionar svg de password e logo
 export default function Register(): JSX.Element {
+  const firstNameRef = useRef<HTMLInputElement>(null);
+  const lastNameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
+  const [inputError, setInputError] = useState(
+    {
+      email: '',
+      password: '',
+      firstName: '',
+      lastName: '',
+      confirmPassword: '',
+    } as Partial<RegisterInfo>,
+  );
+
   return (
     <FormWrapper>
-      <CompanyLogo src={Logo} alt="Logo-aca.so" />
+      <CompanyLogo src={Logo} alt="Logo-acaso" />
       <FormTitle>C A D A S T R O</FormTitle>
       <NameWrapper>
-        <Input type="text" placeholder="Primeiro nome" width="230px" label="Primeiro nome*" />
-        <Input type="text" placeholder="Último nome" width="230px" label="Último nome*" />
+        <Input type="text" placeholder="Primeiro nome" width="230px" label="Primeiro nome*" innerRef={firstNameRef} error={inputError?.firstName} />
+        <Input type="text" placeholder="Último nome" width="230px" label="Último nome*" innerRef={lastNameRef} error={inputError?.lastName} />
       </NameWrapper>
-      <Input type="email" placeholder="Seu@email.com" width="500px" label="E-mail*" />
-      <Input type="password" placeholder="******" width="500px" label="Senha*" />
-      <Input type="password" placeholder="******" width="500px" label="Confirme a senha*" />
+      <Input type="email" placeholder="Seu@email.com" width="500px" label="E-mail*" innerRef={emailRef} error={inputError?.email} />
+      <Input type="password" placeholder="******" width="500px" label="Senha*" innerRef={passwordRef} error={inputError?.password} />
+      <Input type="password" placeholder="******" width="500px" label="Confirme a senha*" innerRef={confirmPasswordRef} error={inputError?.confirmPassword} />
       <Button
         backgroundColor="white"
         color="black"
         width="400px"
         onClick={() => {
+          const { triggerInput, errorMessage } = validateInput('register', {
+            email: emailRef.current?.value,
+            password: passwordRef.current?.value,
+            firstName: firstNameRef.current?.value,
+            lastName: lastNameRef.current?.value,
+            confirmPassword: confirmPasswordRef.current?.value,
+          });
+          if (triggerInput && triggerInput !== '') {
+            setInputError({ [triggerInput]: errorMessage });
+          }
         }}
         font="Montserrat"
         fontWeigth="700"
