@@ -7,6 +7,8 @@ export interface Props {
   placeholder?: string;
   width: string;
   label?: string;
+  innerRef?: React.RefObject<HTMLInputElement>;
+  error?: string;
 }
 const StyledInput = styled.input<Props>`
   border: none;
@@ -20,12 +22,14 @@ const StyledInput = styled.input<Props>`
   font-weight: 400;
   box-sizing: border-box;
   font-family: 'Raleway', sans-serif;
+  border: ${(props) => (props.error ? '3px solid #E93F78' : 'none')}
 
   `;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  max-width: 500px;
   `;
 const Label = styled.span`
   font-size: 16px;
@@ -39,12 +43,22 @@ const PasswordIconWrapper = styled.img`
   top: 45px;
 
   `;
+const ErrorMessage = styled.span`
+  font-size: 12px;
+  line-weight: 400;
+  line-height: 18px;
+  color: #E93F78;
+  margin-top: 8px;
+  margin-left: 20px;
+  `;
 
 export default function Input({
   type,
   placeholder,
   width,
   label,
+  innerRef,
+  error,
 }: Props): JSX.Element {
   const [value, setValue] = React.useState('');
 
@@ -63,8 +77,11 @@ export default function Input({
         value={value}
         placeholder={placeholder}
         onChange={inputHandler}
+        ref={innerRef}
+        error={error}
       />
 
+      {error ? <ErrorMessage>{error}</ErrorMessage> : null}
     </Wrapper>
 
   );
