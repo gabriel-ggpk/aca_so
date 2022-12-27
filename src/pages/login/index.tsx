@@ -7,6 +7,7 @@ import Input from '@/components/elements/input';
 import Button from '@/components/elements/button';
 import validateInput from '@/core/helpers/inputValidator';
 import LoginInfo from '@/core/interfaces/forms/login';
+import AuthServices from '@/core/service/signIn';
 
 function Login(): JSX.Element {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -17,6 +18,7 @@ function Login(): JSX.Element {
       password: '',
     } as Partial<LoginInfo>,
   );
+  // const [reqError, setReqError] = useState('');
   return (
     <FormWrapper>
       <CompanyLogo src={Logo} alt="Logo-aca.so" />
@@ -34,7 +36,12 @@ function Login(): JSX.Element {
           });
           if (triggerInput && triggerInput !== '') {
             setInputError({ [triggerInput]: errorMessage });
+            return;
           }
+          AuthServices.login({
+            email: emailRef.current?.value,
+            password: passwordRef.current?.value,
+          });
         }}
         fontWeigth="700"
       >
@@ -45,6 +52,7 @@ function Login(): JSX.Element {
         width="400px"
         onClick={() => {
         }}
+        label="Esqueci minha senha"
         fontWeigth="700"
       >
         Criar minha conta em aca.so
