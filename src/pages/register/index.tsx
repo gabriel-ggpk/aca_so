@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Input from '@/components/elements/input';
 import Button from '@/components/elements/button';
 import Logo from '../../assets/negative-logo.svg';
@@ -24,7 +24,7 @@ export default function Register(): JSX.Element {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
-
+  const navigate = useNavigate();
   const [inputError, setInputError] = useState(
     {
       email: '',
@@ -66,19 +66,18 @@ export default function Register(): JSX.Element {
             setInputError({ [triggerInput]: errorMessage });
             return;
           }
-          const data = await CreateUserServices.createUser({
+          const result = await CreateUserServices.createUser({
             firstName: firstNameRef.current?.value,
             lastName: lastNameRef.current?.value,
             email: emailRef.current?.value,
             password: passwordRef.current?.value,
             confirmPassword: confirmPasswordRef.current?.value,
           });
-          if (data && data.message) {
+          if (result?.data.code === 400) {
             setInputError({});
-            setReqError(data.message);
-            return;
+            setReqError(result.message || '');
+            navigate(`/confirmEmail?email=${emailRef.current?.value}`);
           }
-          redirect(`/confirmEmail?email=${emailRef.current?.value}`);
         }}
         font="Montserrat"
         fontWeigth="700"

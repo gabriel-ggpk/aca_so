@@ -19,9 +19,9 @@ export default class CreateUserServices {
       result = { data: result.data };
     } catch (error: any) {
       if (error.response.status === 400) {
-        result = { message: 'Email registrado, porém não confirmado' };
+        result = { data: { code: 400 }, message: 'Email registrado, porém não confirmado.' };
       } else {
-        result = { message: 'Something went wrong' };
+        result = { data: { code: 500 }, message: 'Erro interno.' };
       }
     }
     return result;
