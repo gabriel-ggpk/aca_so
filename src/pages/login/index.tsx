@@ -42,12 +42,13 @@ function Login(): JSX.Element {
             setInputError({ [triggerInput]: errorMessage });
             return;
           }
-          const data = await AuthServices.login({
+          setInputError({});
+          const result = await AuthServices.login({
             email: emailRef.current?.value,
             password: passwordRef.current?.value,
           });
-          if (data && data.message) {
-            setReqError(data.message);
+          if (result && result.message) {
+            setReqError(result.message);
             return;
           }
           // adicionar o token no localstorage
