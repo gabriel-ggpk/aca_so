@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 // usando export para contornar um bug do eslint
-export interface Props {
+export interface ButtonProps {
   children?: React.ReactNode;
   backgroundColor?: string;
   color?: string;
@@ -10,8 +10,13 @@ export interface Props {
   onClick: () => void;
   fontWeigth?: string;
   font?: string;
+  label?: string;
 }
-const StyledButton = styled.div<Props>`
+export interface ButtonLabelProps {
+  children?: React.ReactNode;
+  labelColor?: string;
+}
+const StyledButton = styled.div<ButtonProps>`
   background-color: ${(props) => props.backgroundColor || 'white'};
   color: ${(props) => props.color || 'white'};
   width: ${(props) => props.width || '200px'};
@@ -24,7 +29,18 @@ const StyledButton = styled.div<Props>`
   align-items: center;
   padding: 17px 0px;
 `;
-
+const ButtonLabel = styled.span<ButtonLabelProps>`
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 8px;
+  font-weight: 400;
+  color: ${(props) => props.labelColor || 'white'};
+`;
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
 export default function Button({
   children,
   width,
@@ -34,9 +50,12 @@ export default function Button({
   text,
   fontWeigth,
   font,
-}: Props): JSX.Element {
+  label,
+  labelColor,
+}: ButtonProps & ButtonLabelProps): JSX.Element {
   return (
-    <div className="wrapper">
+    <ButtonWrapper>
+      {label ? <ButtonLabel labelColor={labelColor}>{label}</ButtonLabel> : null}
       <StyledButton
         onClick={onClick}
         backgroundColor={backgroundColor}
@@ -48,6 +67,6 @@ export default function Button({
       >
         {text || children}
       </StyledButton>
-    </div>
+    </ButtonWrapper>
   );
 }
