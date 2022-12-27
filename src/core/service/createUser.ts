@@ -18,15 +18,10 @@ export default class CreateUserServices {
       });
       result = { data: result.data };
     } catch (error: any) {
-      switch (error.response.status) {
-        case 400:
-          result = { message: 'Invalid email or password' };
-          break;
-        case 401:
-          result = { message: 'Invalid email or password' };
-          break;
-        default:
-          result = { message: 'Something went wrong' };
+      if (error.response.status === 400) {
+        result = { message: 'Email registrado, porém não confirmado' };
+      } else {
+        result = { message: 'Something went wrong' };
       }
     }
     return result;

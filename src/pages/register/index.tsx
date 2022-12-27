@@ -70,6 +70,7 @@ export default function Register(): JSX.Element {
             confirmPassword: confirmPasswordRef.current?.value,
           });
           if (data && data.message) {
+            setInputError({});
             setReqError(data.message);
           }
         }}
