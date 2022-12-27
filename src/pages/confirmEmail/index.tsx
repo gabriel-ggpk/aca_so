@@ -15,7 +15,7 @@ import CreateUserServices from '@/core/service/createUser';
 dayjs.extend(duration);
 
 export default function ConfirmEmail(): JSX.Element {
-  const [emailTimer, setEmailTimer] = React.useState(dayjs.duration(120, 'seconds'));
+  const [emailTimer, setEmailTimer] = React.useState(dayjs.duration(2, 'seconds'));
   const [resendEmail, setResendEmail] = React.useState(false);
   const [inputError, setInputError] = React.useState({} as Partial<VerificationInfo>);
   const [reqError, setReqError] = React.useState('');
@@ -77,10 +77,16 @@ export default function ConfirmEmail(): JSX.Element {
         backgroundColor="rgba(255, 255, 255, 0.1)"
         width="400px"
         fontWeigth="700"
-        onClick={() => {
+        onClick={async () => {
           if (!resendEmail) return;
           setEmailTimer(dayjs.duration(120, 'seconds'));
           setResendEmail(false);
+          const result = await CreateUserServices.resendVerificationEmail({
+            email: searchParams.get('email'),
+          });
+          if (result && result.message) {
+            setReqError(result.message);
+          }
         }}
       >
         {resendEmail ? 'Reenviar código' : `aguarde ${emailTimer.format('m:ss')} para reenviar`}

@@ -10,6 +10,7 @@ import FormTitle from '@/components/templates/styledComponents/formTitle';
 import validateInput from '@/core/helpers/inputValidator';
 import RegisterInfo from '@/core/interfaces/forms/register';
 import CreateUserServices from '@/core/service/createUser';
+import timeout from '@/core/helpers/delay';
 
 const NameWrapper = styled.div`
   display: flex;
@@ -74,11 +75,16 @@ export default function Register(): JSX.Element {
             password: passwordRef.current?.value,
             confirmPassword: confirmPasswordRef.current?.value,
           });
-          if (result?.data.code === 400) {
-            setInputError({});
-            setReqError(result.message || '');
-            navigate(`/confirmEmail?email=${emailRef.current?.value}`);
+          if (result?.data.code === '0009') {
+            setReqError('E-mail já cadastrado');
+            return;
           }
+          if (result?.data.code === '0010') {
+            setReqError('E-mail já cadastrado, mas não confirmado');
+            await timeout(2000);
+            await CreateUserServices.resendVerificationEmail(emailRef.current?.value);
+          }
+          navigate(`/confirmEmail?email=${emailRef.current?.value}`);
         }}
         font="Montserrat"
         fontWeigth="700"

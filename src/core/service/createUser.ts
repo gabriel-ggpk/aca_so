@@ -16,12 +16,18 @@ export default class CreateUserServices {
         first_name: user.firstName,
         last_name: user.lastName,
       });
-      result = { data: result.data };
     } catch (error: any) {
-      if (error.response.status === 400) {
-        result = { data: { code: 400 }, message: 'Email registrado, porém não confirmado.' };
-      } else {
-        result = { data: { code: 500 }, message: 'Erro interno.' };
+      const code = error.response.data.code.split('.')[2];
+      switch (code) {
+        case '0009':
+          result = { data: { code }, message: 'Email já cadastrado.' };
+          break;
+        case '0010':
+          result = { data: { code }, message: 'Email já cadastrado, mas não confirmado' };
+          break;
+        default:
+          result = { data: { code }, message: 'Erro interno.' };
+          break;
       }
     }
     return result;
@@ -34,13 +40,25 @@ export default class CreateUserServices {
         email: user.email,
         confirmation_code: user.code,
       });
-      result = { data: result.data };
     } catch (error: any) {
-      if (error.response.status === 400) {
-        result = { data: { code: 400 }, message: 'Código inválido.' };
+      const code = error.response.data.code.split('.')[2];
+      if (code === '0004') {
+        result = { data: { code }, message: 'Código inválido.' };
       } else {
-        result = { data: { code: 500 }, message: 'Erro interno.' };
+        result = { data: { code }, message: 'Erro interno.' };
       }
+    }
+    return result;
+  }
+
+  static async resendVerificationEmail(user: any): Promise<FormRequest> {
+    let result;
+    try {
+      result = await http.post<any>('/auth/resend-confirmation-code', {
+        email: user.email,
+      });
+    } catch (error: any) {
+      result = { data: { code: 500 }, message: 'Erro interno.' };
     }
     return result;
   }
