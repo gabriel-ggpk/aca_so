@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
+import { redirect } from 'react-router-dom';
 import Input from '@/components/elements/input';
 import Button from '@/components/elements/button';
 import Logo from '../../assets/negative-logo.svg';
@@ -23,6 +24,7 @@ export default function Register(): JSX.Element {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
+
   const [inputError, setInputError] = useState(
     {
       email: '',
@@ -32,7 +34,9 @@ export default function Register(): JSX.Element {
       confirmPassword: '',
     } as Partial<RegisterInfo>,
   );
+
   const [reqError, setReqError] = useState('');
+
   return (
     <FormWrapper>
       <CompanyLogo src={Logo} alt="Logo-acaso" />
@@ -72,7 +76,9 @@ export default function Register(): JSX.Element {
           if (data && data.message) {
             setInputError({});
             setReqError(data.message);
+            return;
           }
+          redirect(`/confirmEmail?email=${emailRef.current?.value}`);
         }}
         font="Montserrat"
         fontWeigth="700"
