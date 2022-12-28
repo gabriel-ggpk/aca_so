@@ -2,6 +2,7 @@ import http from '@/http-common';
 
 interface FormRequest {
   data?: any;
+  error?: string;
   message?: string;
 }
 
@@ -13,17 +14,18 @@ export default class AuthServices {
         email: user.email,
         password: user.password,
       });
-      result = { data: result.data };
     } catch (error: any) {
-      switch (error.response.status) {
-        case 400:
-          result = { message: 'Invalid email or password' };
+      const code = error.response.data.code.split('.')[2];
+      switch (code) {
+        case '0002':
+          result = { error: code, message: 'Senha incorreta' };
           break;
-        case 401:
-          result = { message: 'Invalid email or password' };
+        case '0008':
+          result = { error: code, message: 'Email não registrado' };
           break;
         default:
-          result = { message: 'Something went wrong' };
+          result = { error: code, message: 'Erro interno.' };
+          break;
       }
     }
     return result;

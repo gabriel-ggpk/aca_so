@@ -47,12 +47,19 @@ function Login(): JSX.Element {
             email: emailRef.current?.value,
             password: passwordRef.current?.value,
           });
-          if (result && result.message) {
-            setReqError(result.message);
+          if (!result?.error) {
+            // adicionar o token no localstorage
+            navigate('/home');
+          }
+          if (result?.error === '0002') {
+            setInputError({ password: result?.message });
             return;
           }
-          // adicionar o token no localstorage
-          navigate('/home');
+          if (result?.error === '0008') {
+            setInputError({ email: result?.message });
+            return;
+          }
+          setReqError(result?.message || 'Erro ao realizar login');
         }}
         fontWeigth="700"
       >
