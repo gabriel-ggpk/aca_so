@@ -9,8 +9,7 @@ import FormWrapper from '@/components/templates/styledComponents/formWrapper';
 import FormTitle from '@/components/templates/styledComponents/formTitle';
 import validateInput from '@/core/helpers/inputValidator';
 import RegisterInfo from '@/core/interfaces/forms/register';
-import CreateUserServices from '@/core/service/createUser';
-import timeout from '@/core/helpers/delay';
+import RegisterServices from '@/core/service/register';
 
 const NameWrapper = styled.div`
   display: flex;
@@ -68,7 +67,7 @@ export default function Register(): JSX.Element {
             return;
           }
           setInputError({});
-          const result = await CreateUserServices.createUser({
+          const result = await RegisterServices.createUser({
             firstName: firstNameRef.current?.value,
             lastName: lastNameRef.current?.value,
             email: emailRef.current?.value,
@@ -81,8 +80,8 @@ export default function Register(): JSX.Element {
           }
           if (result?.data.code === '0010') {
             setReqError('E-mail já cadastrado, mas não confirmado');
-            await timeout(2000);
-            await CreateUserServices.resendVerificationEmail(emailRef.current?.value);
+            console.log(emailRef.current?.value);
+            await RegisterServices.resendVerificationEmail(emailRef.current?.value);
           }
           navigate(`/confirmEmail?email=${emailRef.current?.value}`);
         }}

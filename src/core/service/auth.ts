@@ -30,4 +30,19 @@ export default class AuthServices {
     }
     return result;
   }
+
+  static async refreshToken(token: string): Promise<FormRequest> {
+    let result;
+    try {
+      result = await http.post<any>(
+        '/auth/refresh-token',
+        { refresh_token: token },
+      );
+    } catch (error: any) {
+      console.log(error);
+      const code = error.response.data.code.split('.')[2];
+      result = { error: code, message: 'Erro interno.' };
+    }
+    return result;
+  }
 }

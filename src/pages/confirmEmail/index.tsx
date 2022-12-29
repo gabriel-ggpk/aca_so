@@ -10,7 +10,7 @@ import Input from '@/components/elements/input';
 import Button from '@/components/elements/button';
 import validateInput from '@/core/helpers/inputValidator';
 import VerificationInfo from '@/core/interfaces/forms/verification';
-import CreateUserServices from '@/core/service/createUser';
+import RegisterServices from '@/core/service/register';
 
 dayjs.extend(duration);
 
@@ -59,7 +59,7 @@ export default function ConfirmEmail(): JSX.Element {
             return;
           }
           setInputError({});
-          const result = await CreateUserServices.verifyEmail({
+          const result = await RegisterServices.verifyEmail({
             email: searchParams.get('email'),
             code: codeRef.current?.value,
           });
@@ -81,7 +81,7 @@ export default function ConfirmEmail(): JSX.Element {
           if (!resendEmail) return;
           setEmailTimer(dayjs.duration(120, 'seconds'));
           setResendEmail(false);
-          const result = await CreateUserServices.resendVerificationEmail({
+          const result = await RegisterServices.resendVerificationEmail({
             email: searchParams.get('email'),
           });
           if (result && result.message) {

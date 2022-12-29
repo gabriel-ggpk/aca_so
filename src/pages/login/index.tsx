@@ -9,11 +9,14 @@ import Button from '@/components/elements/button';
 import validateInput from '@/core/helpers/inputValidator';
 import LoginInfo from '@/core/interfaces/forms/login';
 import AuthServices from '@/core/service/auth';
+import { useUserContext } from '@/core/context/userContext';
+import LocalService from '@/core/service/locals';
 
 function Login(): JSX.Element {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const userContext = useUserContext();
   const [inputError, setInputError] = useState(
     {
       email: '',
@@ -48,7 +51,8 @@ function Login(): JSX.Element {
             password: passwordRef.current?.value,
           });
           if (!result?.error) {
-            // adicionar o token no localstorage
+            userContext.setUser(result?.data.user);
+            LocalService.addLocalUser(result?.data);
             navigate('/home');
           }
           if (result?.error === '0002') {

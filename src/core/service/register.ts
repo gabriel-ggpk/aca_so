@@ -5,7 +5,7 @@ interface FormRequest {
   message?: string;
 }
 
-export default class CreateUserServices {
+export default class RegisterServices {
   static async createUser(user: any): Promise<FormRequest> {
     let result;
     try {
@@ -51,13 +51,15 @@ export default class CreateUserServices {
     return result;
   }
 
-  static async resendVerificationEmail(user: any): Promise<FormRequest> {
+  static async resendVerificationEmail(email: any): Promise<FormRequest> {
+    console.log(email);
     let result;
     try {
       result = await http.post<any>('/auth/resend-confirmation-code', {
-        email: user.email,
+        email,
       });
     } catch (error: any) {
+      console.log(error);
       result = { data: { code: 500 }, message: 'Erro interno.' };
     }
     return result;
