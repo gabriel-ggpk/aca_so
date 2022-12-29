@@ -10,6 +10,7 @@ const FormWrapper = styled.div`
   }
   & > *:last-child {
     margin-bottom: 0px;
+  }
 `;
 
 export default FormWrapper;

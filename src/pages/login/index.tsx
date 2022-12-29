@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from '@/assets/negative-logo.svg';
-import CompanyLogo from '@/components/templates/styledComponents/companyLogo';
-import FormWrapper from '@/components/templates/styledComponents/formWrapper';
-import FormTitle from '@/components/templates/styledComponents/formTitle';
-import Input from '@/components/elements/input';
-import Button from '@/components/elements/button';
+import CompanyLogo from '@/components/styledComponents/companyLogo';
+import FormWrapper from '@/components/styledComponents/formWrapper';
+import FormTitle from '@/components/styledComponents/formTitle';
+import Input from '@/components/input';
+import Button from '@/components/button';
 import validateInput from '@/core/helpers/inputValidator';
 import LoginInfo from '@/core/interfaces/forms/login';
 import AuthServices from '@/core/service/auth';

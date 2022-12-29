@@ -19,7 +19,6 @@ export default function useAuth():[UserDetailedInfo, boolean] {
           const localUser = LocalService.getUser();
           // se o usuario não tiver localstorage, redireciona para a tela de login
           if (!localUser.user?.id) {
-            console.log('no local user');
             navigate('/');
             return;
           }
@@ -46,7 +45,6 @@ export default function useAuth():[UserDetailedInfo, boolean] {
             setLoading(false);
           });
         } catch (error:any) {
-          console.log(error);
           navigate('/');
         }
       }
@@ -57,9 +55,7 @@ export default function useAuth():[UserDetailedInfo, boolean] {
   useEffect(() => {
     //
     if (refresh) {
-      console.log('refreshing token');
       AuthServices.refreshToken(LocalService.getUser().token.refresh_token).then((res) => {
-        console.log('refreshing token');
         LocalService.updateLocalAccessToken({
           access_token: res.data.access_token,
           id_token: res.data.id_token,
@@ -71,7 +67,6 @@ export default function useAuth():[UserDetailedInfo, boolean] {
 
   useEffect(() => {
     if (!userCreated) {
-      console.log('creating user');
       UserServices.createUser(LocalService.getUser().user.id).then(() => {
         setUserCreated(true);
       });

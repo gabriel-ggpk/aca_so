@@ -8,7 +8,7 @@ const instance = axios.create({
     'Content-type': 'application/json',
   },
 });
-
+// adicionando o token no header para todas as requisições
 instance.interceptors.request.use(
   (config) => {
     const token = LocalService.getLocalAccessToken();

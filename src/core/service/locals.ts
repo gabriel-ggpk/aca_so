@@ -19,7 +19,6 @@ export default class LocalService {
       const newToken = JSON.parse(user);
       newToken.token.id_token = token.id_token;
       newToken.token.access_token = token.access_token;
-      console.log(newToken);
       localStorage.setItem('user', JSON.stringify(newToken));
     }
   }

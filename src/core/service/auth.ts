@@ -1,13 +1,8 @@
 import http from '@/http-common';
-
-interface FormRequest {
-  data?: any;
-  error?: string;
-  message?: string;
-}
+import { IResponse } from '../interfaces/response';
 
 export default class AuthServices {
-  static async login(user: any): Promise<FormRequest> {
+  static async login(user: any): Promise<IResponse> {
     let result;
     try {
       result = await http.post<any>('/auth/login', {
@@ -31,7 +26,7 @@ export default class AuthServices {
     return result;
   }
 
-  static async refreshToken(token: string): Promise<FormRequest> {
+  static async refreshToken(token: string): Promise<IResponse> {
     let result;
     try {
       result = await http.post<any>(
@@ -39,7 +34,6 @@ export default class AuthServices {
         { refresh_token: token },
       );
     } catch (error: any) {
-      console.log(error);
       const code = error.response.data.code.split('.')[2];
       result = { error: code, message: 'Erro interno.' };
     }
