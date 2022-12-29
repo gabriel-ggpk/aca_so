@@ -1,21 +1,15 @@
 import React, { useRef, useState } from 'react';
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import Input from '@/components/elements/input';
-import Button from '@/components/elements/button';
+import Input from '@/components/input';
+import Button from '@/components/button';
 import Logo from '../../assets/negative-logo.svg';
-import CompanyLogo from '@/components/templates/styledComponents/companyLogo';
-import FormWrapper from '@/components/templates/styledComponents/formWrapper';
-import FormTitle from '@/components/templates/styledComponents/formTitle';
+import CompanyLogo from '@/components/styledComponents/companyLogo';
+import FormWrapper from '@/components/styledComponents/formWrapper';
+import FormTitle from '@/components/styledComponents/formTitle';
 import validateInput from '@/core/helpers/inputValidator';
 import RegisterInfo from '@/core/interfaces/forms/register';
 import RegisterServices from '@/core/service/register';
-
-const NameWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 500px;
-`;
+import NameWrapper from './style';
 
 // adicionar svg de password e logo
 export default function Register(): JSX.Element {
