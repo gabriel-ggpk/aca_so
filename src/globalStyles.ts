@@ -4,7 +4,6 @@ import Gas from '@/assets/Gas.svg';
 
 const GlobalStyle = createGlobalStyle`
     html{
-        height: -webkit-fill-available;
         margin: 0;
         padding: 0;
     }
@@ -18,9 +17,13 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     color: #fff;
     font-family: 'Raleway', sans-serif;
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
+    height: 100vh;
+    height: -webkit-fill-available;
+    & > div {
+      height: 100vh;
+
   }
+}
 `;
 
 export default GlobalStyle;
