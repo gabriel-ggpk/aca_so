@@ -15,6 +15,7 @@ export default function Input({
   error,
 }: Props): JSX.Element {
   const [value, setValue] = React.useState('');
+  const [showPassword, setShowPassword] = React.useState('');
 
   const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputText = event.target.value;
@@ -23,9 +24,9 @@ export default function Input({
   return (
     <Wrapper>
       {label && <Label>{label}</Label>}
-      {type === 'password' && <PasswordIconWrapper src={PasswordIcon} alt="" />}
+      {type === 'password' && <PasswordIconWrapper src={PasswordIcon} alt="" onClick={() => { setShowPassword((show) => (show ? '' : 'text')); }} />}
       <StyledInput
-        type={type}
+        type={showPassword || type}
         width={width}
         value={value}
         placeholder={placeholder}
