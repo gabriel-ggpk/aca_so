@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import Button from '@/components/elements/button';
 import Picture from '@/assets/profile-picture.png';
 import Badge from '@/assets/badge.png';
@@ -8,7 +11,11 @@ import ProfileBackground from '@/assets/profile-background.png';
 import Stars from '@/assets/stars.png';
 import useAuth from '@/core/hooks/useAuth';
 import LocalService from '@/core/service/locals';
-// import useAuth from '@/core/hooks/useAuth';
+import 'dayjs/locale/pt-br';
+
+dayjs.locale('pt-br');
+dayjs.extend(duration);
+dayjs.extend(relativeTime);
 
 const PageWrapper = styled.div`
   background-color: #0f0f0f;
@@ -120,11 +127,8 @@ const FirstName = styled.span`
 export default function Home(): JSX.Element {
   const [user, loading] = useAuth();
   const navigate = useNavigate();
-  // mostrar imagem de perfil
-  // mostrar tempo ativo
-  // adicionar contexto de usuario
-  // testar refresh token
-  // fazer mobile das outras paginas
+  const time = dayjs.duration(dayjs().diff(dayjs(user.created_at))).humanize();
+
   return (
 
     <PageWrapper>
@@ -137,7 +141,10 @@ export default function Home(): JSX.Element {
             </NameWrapper>
             <Status>
               Ativo há pelo menos
-              <strong> 42 minutos</strong>
+              <strong>
+                {' '}
+                {time}
+              </strong>
             </Status>
             <Button
               width=""
@@ -154,7 +161,7 @@ export default function Home(): JSX.Element {
           </InfoWrapper>
           <ProfileWrapper>
             <ProfilePictureBackground src={ProfileBackground} alt="Profile" />
-            <ProfilePicture src={Picture} />
+            <ProfilePicture src={/* user.profile_picture */ Picture} referrerPolicy="no-referrer" />
             <ProfileBadge src={Badge} />
           </ProfileWrapper>
         </ContentWrapper>
