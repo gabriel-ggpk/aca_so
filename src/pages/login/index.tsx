@@ -9,11 +9,14 @@ import Button from '@/components/elements/button';
 import validateInput from '@/core/helpers/inputValidator';
 import LoginInfo from '@/core/interfaces/forms/login';
 import AuthServices from '@/core/service/auth';
+import { useUserContext } from '@/core/context/userContext';
+import LocalService from '@/core/service/locals';
 
 function Login(): JSX.Element {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const userContext = useUserContext();
   const [inputError, setInputError] = useState(
     {
       email: '',
@@ -47,12 +50,20 @@ function Login(): JSX.Element {
             email: emailRef.current?.value,
             password: passwordRef.current?.value,
           });
-          if (result && result.message) {
-            setReqError(result.message);
+          if (!result?.error) {
+            userContext.setUser(result?.data.user);
+            LocalService.addLocalUser(result?.data);
+            navigate('/home');
+          }
+          if (result?.error === '0002') {
+            setInputError({ password: result?.message });
             return;
           }
-          // adicionar o token no localstorage
-          navigate('/home');
+          if (result?.error === '0008') {
+            setInputError({ email: result?.message });
+            return;
+          }
+          setReqError(result?.message || 'Erro ao realizar login');
         }}
         fontWeigth="700"
       >

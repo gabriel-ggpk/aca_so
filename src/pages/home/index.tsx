@@ -4,6 +4,7 @@ import Picture from '@/assets/profile-picture.png';
 import Button from '@/components/elements/button';
 import Stars from '@/assets/stars.svg';
 import PictureBackground from '@/assets/profile-picture-background.svg';
+import useAuth from '@/core/hooks/useAuth';
 
 const PageWrapper = styled.div`
   display: inline-block;
@@ -66,25 +67,31 @@ const UserStatus = styled.p`
   margin-bottom: 45px;
   `;
 export default function Home(): JSX.Element {
-  return (
-    <PageWrapper>
-      <PlaceholderWrapper>
-        <InfoWrapper>
-          <UserName><strong>JOÃO</strong></UserName>
-          <UserName>CARLOS</UserName>
-          <UserStatus>
-            Ativo há pelo menos
-            <strong> 42 minutos</strong>
-          </UserStatus>
+  const [user, loading] = useAuth();
 
-          <Button width="" labelColor="black" fontWeigth="500" font="Montserrat" onClick={() => {}}>
-            Sair de aca.so
-          </Button>
-        </InfoWrapper>
-        <ProfileWrapper>
-          <img src={Picture} alt="Profile" />
-        </ProfileWrapper>
-      </PlaceholderWrapper>
+  return (
+
+    <PageWrapper>
+      {loading ? <div>Carregando...</div> : (
+        <PlaceholderWrapper>
+          <InfoWrapper>
+            <UserName><strong>{`${user.first_name}`}</strong></UserName>
+            <UserName>{`${user.last_name}` }</UserName>
+            <UserStatus>
+              Ativo há pelo menos
+              <strong> 42 minutos</strong>
+            </UserStatus>
+
+            <Button width="" labelColor="black" fontWeigth="500" font="Montserrat" onClick={() => {}}>
+              Sair de aca.so
+            </Button>
+          </InfoWrapper>
+          <ProfileWrapper>
+            <img src={Picture} alt="Profile" />
+          </ProfileWrapper>
+        </PlaceholderWrapper>
+      ) }
+
     </PageWrapper>
 
   );
