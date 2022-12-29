@@ -3,10 +3,11 @@ import React, { Suspense, useMemo } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import routes from './core/config/routes';
 import {
-  GlobalUserContext, User, UserContext,
+  GlobalUserContext, UserContext,
 } from './core/context/userContext';
 import RouteInterface from './core/interfaces/route';
 import Token from './core/interfaces/token';
+import { User } from './core/interfaces/user';
 import AuthServices from './core/service/auth';
 import GlobalStyles from './globalStyles';
 
@@ -18,11 +19,13 @@ export default function AppRoutes(): JSX.Element {
     last_name: '',
     groups: [],
   } as User);
+
   const [token, setToken] = React.useState({
     access_token: '',
     refresh_token: '',
     id_token: '',
   } as Token);
+
   return (
     <GlobalUserContext.Provider value={useMemo<UserContext>(() => ({
       user,
@@ -46,6 +49,7 @@ export default function AppRoutes(): JSX.Element {
 
   );
 }
+
 const RouterComponents = routes.map(
   ({ url, component }: RouteInterface): JSX.Element => (
     <Route key={url} path={url} element={React.createElement(component)} />

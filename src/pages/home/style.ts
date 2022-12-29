@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Stars from '@/assets/images/stars.png';
+import Stars from '@/assets/stars.png';
 
 export const PageWrapper = styled.div`
   background-color: #0f0f0f;

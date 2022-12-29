@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Logo from '@/assets/negative-logo.svg';
 import CompanyLogo from '@/components/styledComponents/companyLogo';
 import FormWrapper from '@/components/styledComponents/formWrapper';
-import FormTitle from '@/components/styledComponents/formTitle';
+import { FormTitle, FormTitleSmall } from '@/components/styledComponents/formTitle';
 import Input from '@/components/input';
 import Button from '@/components/button';
 import validateInput from '@/core/helpers/inputValidator';
@@ -28,6 +28,7 @@ function Login(): JSX.Element {
     <FormWrapper>
       <CompanyLogo src={Logo} alt="Logo-aca.so" />
       <FormTitle>L O G I N</FormTitle>
+      <FormTitleSmall>Login</FormTitleSmall>
       <Input type="email" placeholder="Seu@email.com" width="500px" label="E-mail" innerRef={emailRef} error={inputError?.email} />
       <Input type="password" placeholder="******" width="500px" label="Senha" innerRef={passwordRef} error={inputError?.password} />
       <Button

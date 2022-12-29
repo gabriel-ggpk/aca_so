@@ -11,6 +11,14 @@ const FormWrapper = styled.div`
   & > *:last-child {
     margin-bottom: 0px;
   }
+  @media (max-width: 1200px) {
+    & > * {
+      margin-bottom: 35px;
+    }
+    & > *:last-child {
+      margin-bottom: 20px;
+    }
+  } 
 `;
 
 export default FormWrapper;

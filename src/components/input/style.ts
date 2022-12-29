@@ -13,14 +13,24 @@ export const StyledInput = styled.input<Props>`
   font-weight: 400;
   box-sizing: border-box;
   font-family: 'Raleway', sans-serif;
-  border: ${(props) => (props.error ? '3px solid #E93F78' : 'none')}
-
+  border: ${(props) => (props.error ? '3px solid #E93F78' : 'none')};
+  @media (max-width: 1200px) {
+    width: 100%;
+    
+  }
   `;
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
   max-width: 500px;
+  @media (max-width: 1200px) {
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 45px;
+    padding-right: 45px;
+
+  }
   `;
 export const Label = styled.span`
   font-size: 16px;
@@ -32,7 +42,9 @@ export const PasswordIconWrapper = styled.img`
   position: absolute;
   right: 16px;
   top: 45px;
-
+  @media (max-width: 1200px) {
+    display: none;
+  }
   `;
 export const ErrorMessage = styled.span`
   font-size: 12px;

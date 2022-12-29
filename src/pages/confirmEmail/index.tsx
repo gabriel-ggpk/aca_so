@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Logo from '@/assets/negative-logo.svg';
 import CompanyLogo from '@/components/styledComponents/companyLogo';
 import FormWrapper from '@/components/styledComponents/formWrapper';
-import FormTitle from '@/components/styledComponents/formTitle';
+import { FormTitle, FormTitleSmall } from '@/components/styledComponents/formTitle';
 import Input from '@/components/input';
 import Button from '@/components/button';
 import validateInput from '@/core/helpers/inputValidator';
@@ -41,6 +41,7 @@ export default function ConfirmEmail(): JSX.Element {
       <FormTitle>
         {'C O N F I R M A R \n E - M A I L'}
       </FormTitle>
+      <FormTitleSmall>{'Confirmar \n e-mail'}</FormTitleSmall>
       <Input type="email" placeholder="Digite o código recebido..." width="500px" label="Código" innerRef={codeRef} error={inputError.code} />
       <Button
         backgroundColor="white"
@@ -77,6 +78,7 @@ export default function ConfirmEmail(): JSX.Element {
         backgroundColor="rgba(255, 255, 255, 0.1)"
         width="400px"
         fontWeigth="700"
+        label="Não recebeu o código?"
         onClick={async () => {
           if (!resendEmail) return;
           setEmailTimer(dayjs.duration(120, 'seconds'));
@@ -91,6 +93,7 @@ export default function ConfirmEmail(): JSX.Element {
       >
         {resendEmail ? 'Reenviar código' : `aguarde ${emailTimer.format('m:ss')} para reenviar`}
       </Button>
+
     </FormWrapper>
   );
 }
