@@ -3,10 +3,11 @@ import React, { Suspense, useMemo } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import routes from './core/config/routes';
 import {
-  GlobalUserContext, User, UserContext,
+  GlobalUserContext, UserContext,
 } from './core/context/userContext';
 import RouteInterface from './core/interfaces/route';
 import Token from './core/interfaces/token';
+import { User } from './core/interfaces/user';
 import AuthServices from './core/service/auth';
 import GlobalStyles from './globalStyles';
 
