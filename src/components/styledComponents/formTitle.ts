@@ -8,6 +8,22 @@ const FormTitle = styled.h1`
   margin-bottom: 120px;
   white-space: pre-line;
   text-align: center;
+  @media (max-width: 1200px) {
+    display: none;
+  }
 `;
 
-export default FormTitle;
+const FormTitleSmall = styled.h1`
+  display: none;
+  font-size: 32px;
+  line-height: 37px;
+  font-weight: 700;
+  margin-bottom: 69px;
+  white-space: pre-line;
+  text-align: center;
+  @media (max-width: 1200px) {
+    display: block !important;
+  }
+`;
+
+export { FormTitle, FormTitleSmall };

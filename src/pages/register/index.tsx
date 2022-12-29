@@ -5,7 +5,7 @@ import Button from '@/components/button';
 import Logo from '../../assets/negative-logo.svg';
 import CompanyLogo from '@/components/styledComponents/companyLogo';
 import FormWrapper from '@/components/styledComponents/formWrapper';
-import FormTitle from '@/components/styledComponents/formTitle';
+import { FormTitle, FormTitleSmall } from '@/components/styledComponents/formTitle';
 import validateInput from '@/core/helpers/inputValidator';
 import RegisterInfo from '@/core/interfaces/forms/register';
 import RegisterServices from '@/core/service/register';
@@ -35,6 +35,7 @@ export default function Register(): JSX.Element {
     <FormWrapper>
       <CompanyLogo src={Logo} alt="Logo-acaso" />
       <FormTitle>C A D A S T R O</FormTitle>
+      <FormTitleSmall>Cadastro</FormTitleSmall>
       <NameWrapper>
         <Input type="text" placeholder="Primeiro nome" width="230px" label="Primeiro nome*" innerRef={firstNameRef} error={inputError?.firstName} />
         <Input type="text" placeholder="Último nome" width="230px" label="Último nome*" innerRef={lastNameRef} error={inputError?.lastName} />
@@ -48,6 +49,8 @@ export default function Register(): JSX.Element {
         width="400px"
         label={reqError}
         labelColor="red"
+        font="Montserrat"
+        fontWeigth="700"
         onClick={async () => {
           const { triggerInput, errorMessage } = validateInput('register', {
             email: emailRef.current?.value,
@@ -78,10 +81,11 @@ export default function Register(): JSX.Element {
           }
           navigate(`/confirmEmail?email=${emailRef.current?.value}`);
         }}
-        font="Montserrat"
-        fontWeigth="700"
       >
         Criar minha conta aca.so
+      </Button>
+      <Button width="400px" font="Raleway" fontWeigth="700" onClick={() => navigate('/')} backgroundColor="rgba(255, 255, 255, 0.1)">
+        Voltar ao login
       </Button>
     </FormWrapper>
 

@@ -21,9 +21,12 @@ const GlobalStyle = createGlobalStyle`
     height: -webkit-fill-available;
     & > div {
       height: 100vh;
-
   }
+  @media (max-width: 1200px) {
+    background-image: none !important;
+
 }
+  }
 `;
 
 export default GlobalStyle;
