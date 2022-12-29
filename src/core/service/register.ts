@@ -1,12 +1,8 @@
 import http from '@/http-common';
-
-interface FormRequest {
-  data?: any;
-  message?: string;
-}
+import { IResponse } from '../interfaces/response';
 
 export default class RegisterServices {
-  static async createUser(user: any): Promise<FormRequest> {
+  static async createUser(user: any): Promise<IResponse> {
     let result;
     try {
       result = await http.post<any>('/auth/sign-up', {
@@ -33,7 +29,7 @@ export default class RegisterServices {
     return result;
   }
 
-  static async verifyEmail(user: any): Promise<FormRequest> {
+  static async verifyEmail(user: any): Promise<IResponse> {
     let result;
     try {
       result = await http.post<any>('/auth/confirm-sign-up', {
@@ -51,15 +47,13 @@ export default class RegisterServices {
     return result;
   }
 
-  static async resendVerificationEmail(email: any): Promise<FormRequest> {
-    console.log(email);
+  static async resendVerificationEmail(email: any): Promise<IResponse> {
     let result;
     try {
       result = await http.post<any>('/auth/resend-confirmation-code', {
         email,
       });
     } catch (error: any) {
-      console.log(error);
       result = { data: { code: 500 }, message: 'Erro interno.' };
     }
     return result;

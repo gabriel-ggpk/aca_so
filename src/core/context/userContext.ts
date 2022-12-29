@@ -1,21 +1,14 @@
 import { createContext, useContext } from 'react';
 import Token from '../interfaces/token';
+import { User } from '../interfaces/user';
 
-export type User = {
-  id: string;
-  email: string;
-  first_name: string;
-  last_name: string;
-  groups: string[];
-};
-
-export type UserContext = {
+export interface UserContext {
   token: Token,
   user: User,
   setToken: (token:Token) => void;
   setUser: (user:User) => void;
   refreshToken: () => void;
-};
+}
 
 export const GlobalUserContext = createContext<UserContext>({
   token: {

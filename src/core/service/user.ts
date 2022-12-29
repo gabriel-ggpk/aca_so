@@ -1,13 +1,8 @@
 import http from '@/http-common';
-
-interface FormRequest {
-  data?: any;
-  error?: string;
-  message?: string;
-}
+import { IResponse } from '../interfaces/response';
 
 export default class UserServices {
-  static async createUser(userId: string): Promise<FormRequest> {
+  static async createUser(userId: string): Promise<IResponse> {
     let result;
     try {
       result = await http.post<any>('/user/', {
@@ -20,7 +15,7 @@ export default class UserServices {
     return result;
   }
 
-  static async getUser(id:string): Promise<FormRequest> {
+  static async getUser(id:string): Promise<IResponse> {
     let result;
     try {
       result = await http.get<any>(

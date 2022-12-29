@@ -80,7 +80,6 @@ export default function Register(): JSX.Element {
           }
           if (result?.data.code === '0010') {
             setReqError('E-mail já cadastrado, mas não confirmado');
-            console.log(emailRef.current?.value);
             await RegisterServices.resendVerificationEmail(emailRef.current?.value);
           }
           navigate(`/confirmEmail?email=${emailRef.current?.value}`);

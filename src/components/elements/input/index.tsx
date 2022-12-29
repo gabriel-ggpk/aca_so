@@ -45,7 +45,7 @@ const PasswordIconWrapper = styled.img`
   `;
 const ErrorMessage = styled.span`
   font-size: 12px;
-  line-weight: 400;
+  font-weight: 400;
   line-height: 18px;
   color: #E93F78;
   margin-top: 8px;
