@@ -1,11 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import axios from 'axios';
-import dotenv from 'dotenv';
 import LocalService from './core/service/locals';
 
-dotenv.config();
 const instance = axios.create({
-  baseURL: process.env.API_URL || 'http://localhost:3000',
+  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:3000',
   headers: {
     'Content-type': 'application/json',
   },
